@@ -7,7 +7,7 @@ try:
     conn = psycopg2.connect(
         dbname="e-commerce_platform",  # Updated database name
         user="postgres",
-        password="789456123",
+        password="Your Password",  # Replace with your actual password
         host="localhost"
     )
     cur = conn.cursor()
