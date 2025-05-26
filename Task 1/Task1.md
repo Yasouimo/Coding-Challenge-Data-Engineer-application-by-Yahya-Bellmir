@@ -30,7 +30,7 @@ CREATE DATABASE e-commerce_platform;
 
 ## Database Creation
 
-### Schema Creation
+### Tables Creation
 ```sql
 -- Users table
 CREATE TABLE users (
