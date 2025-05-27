@@ -7,6 +7,7 @@ This repository contains a comprehensive implementation of data engineering task
 ```
 ├── README.md
 ├── e-commerce_platform.sql    # Database initialization file
+├── Coding_Challenge_Summary.pdf  # One-page technical summary
 ├── Task 1/
 │   ├── Task1.md
 │   ├── generate_sample.py
@@ -56,6 +57,13 @@ Each task has detailed documentation in its respective folder:
 - Task 1: Database optimization
 - Task 2: User retention analysis
 - Task 3: AI segmentation
+
+### Technical Summary
+The `Coding_Challenge_Summary.pdf` provides a one-page overview of:
+- Key optimizations achieved (64.34% improvement in WAU queries)
+- Retention analysis insights
+- User segmentation strategy using AI
+- Technical implementation details
 
 ## Database Setup
 The project includes `e-commerce_platform.sql` which contains:
