@@ -6,6 +6,7 @@ This repository contains a comprehensive implementation of data engineering task
 ## Project Structure
 ```
 ├── README.md
+├── e-commerce_platform.sql    # Database initialization file
 ├── Task 1/
 │   ├── Task1.md
 │   ├── generate_sample.py
@@ -44,7 +45,7 @@ This repository contains a comprehensive implementation of data engineering task
 
 ## Getting Started
 1. Clone the repository
-2. Set up PostgreSQL database
+2. Set up PostgreSQL database using `e-commerce_platform.sql`
 3. Install required Python packages
 4. Follow individual task documentation
 
@@ -53,3 +54,10 @@ Each task has detailed documentation in its respective folder:
 - Task 1: Database optimization
 - Task 2: User retention analysis
 - Task 3: AI segmentation
+
+## Database Setup
+The project includes `e-commerce_platform.sql` which contains:
+- Table structures
+- Sample data
+- Initial indexes
+- Required database configurations
