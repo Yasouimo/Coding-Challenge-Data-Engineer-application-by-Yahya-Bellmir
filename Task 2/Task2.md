@@ -74,7 +74,6 @@ The analysis provides insights into:
 ## Files
 - `Task2.ipynb`: Jupyter notebook with implementation
 - `Task2.md`: Documentation and explanation
-- Generated visualizations in 'visualizations' directory
 
 ## Usage
 1. Configure database connection
