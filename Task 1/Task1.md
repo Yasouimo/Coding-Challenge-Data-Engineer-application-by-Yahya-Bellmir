@@ -1,4 +1,4 @@
-# E-commerce Data Analysis Project
+# E-commerce Data Analysis Project Task 1
 
 ## Table of Contents
 1. [Setup](#setup)
@@ -49,7 +49,7 @@ CREATE DATABASE e-commerce_platform;
 
 ## Database Creation
 
-### Schema Creation
+### Tables Creation
 ```sql
 -- Users table
 CREATE TABLE users (
