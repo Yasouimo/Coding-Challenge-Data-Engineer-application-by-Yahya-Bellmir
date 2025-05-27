@@ -15,7 +15,7 @@ def connect_to_elasticsearch():
         print("Attempting to connect to Elasticsearch...")
         es = Elasticsearch(
             "https://localhost:9200",
-            basic_auth=("elastic", "Your_Pass"),  # Updated with your password
+            basic_auth=("Your_username", "Your_Pass"),  # Updated with your password and username
             verify_certs=False,
             request_timeout=30,
             retry_on_timeout=True,
