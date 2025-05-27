@@ -4,7 +4,7 @@ def check_elasticsearch_data():
     # Connect to Elasticsearch
     es = Elasticsearch(
         "https://localhost:9200",
-        basic_auth=("elastic", "789456123"),
+        basic_auth=("elastic", "Your_pass"),
         verify_certs=False,
         ssl_show_warn=False
     )
