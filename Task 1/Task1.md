@@ -16,6 +16,25 @@
 4. Keep default port (5432)
 5. Complete installation
 
+### Python Requirements Installation
+1. Make sure Python is installed on your system
+2. Navigate to the project directory in terminal:
+```bash
+cd "path/to/project"
+```
+3. Install required packages:
+```bash
+pip install -r requirements.txt
+```
+
+The requirements.txt file contains:
+```
+psycopg2>=2.9.9
+pandas>=2.0.0
+matplotlib>=3.7.0
+tabulate>=0.9.0
+```
+
 ### Database Connection
 ```bash
 # Connect to PostgreSQL
