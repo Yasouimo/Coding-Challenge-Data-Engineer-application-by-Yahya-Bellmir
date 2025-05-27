@@ -1,4 +1,4 @@
-# E-commerce Data Analysis Project Task 1
+# E-commerce Data Analysis Project Task 1 
 
 ## Table of Contents
 1. [Setup](#setup)
