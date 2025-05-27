@@ -16,7 +16,9 @@ This repository contains a comprehensive implementation of data engineering task
 │   └── Task2.ipynb
 └── Task 3/
     ├── Task3.md
-    └── elasticsearch_analysis.py
+    ├── behavioral_segmentation.py
+    ├── check_results.py
+    └── requirements.txt
 ```
 
 ## Tasks Implementation
