@@ -1,4 +1,4 @@
-# E-commerce Data Analysis Project Task 1 
+# Task 1: Data Exploration & SQL Query Optimization 
 
 ## Table of Contents
 1. [Setup](#setup)
