@@ -62,7 +62,11 @@ This task implements a weekly cohort analysis to track user retention patterns, 
 - Proper cohort definition and tracking
 
 ## Files
-- `Task2.ipynb`: Implementation notebook
-- `Task2.md`: Documentation
-- `graphs/heatmap.png`: Retention heatmap visualization
-- `graphs/lineplot.png`: Retention trends line plot
+- `Task2.ipynb`: Jupyter notebook with implementation
+- `Task2.md`: Documentation and explanation
+- Generated visualizations in 'visualizations' directory
+
+## Usage
+1. Configure database connection
+2. Run cells in sequence in Task2.ipynb
+3. Review generated visualizations and metrics
