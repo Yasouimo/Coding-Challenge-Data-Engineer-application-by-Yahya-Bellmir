@@ -7,7 +7,7 @@ try:
     conn = psycopg2.connect(
         dbname="e-commerce_platform",
         user="postgres",
-        password="Your_Password",
+        password="789456123",
         host="localhost"
     )
     cur = conn.cursor()
@@ -35,10 +35,39 @@ try:
 
     # Generate events
     print("Generating events...")
-    event_types = ['viewed', 'add-to-cart', 'purchased']
+    event_types = [
+        'view_item',
+        'view_item_list',
+        'add_to_cart',
+        'view_cart',
+        'remove_from_cart',
+        'add_to_wishlist',
+        'begin_checkout',
+        'add_payment_info',
+        'add_shipping_info',
+        'purchase'
+    ]
+    
+    # Create weighted probabilities for event types (some events should occur more frequently than others)
+    event_weights = {
+        'view_item': 30,
+        'view_item_list': 25,
+        'add_to_cart': 15,
+        'view_cart': 8,
+        'remove_from_cart': 5,
+        'add_to_wishlist': 5,
+        'begin_checkout': 4,
+        'add_payment_info': 3,
+        'add_shipping_info': 3,
+        'purchase': 2
+    }
+
     for i in range(1, 10001):
         user_id = random.randint(1, 1000)
-        event_type = random.choice(event_types)
+        event_type = random.choices(
+            population=list(event_weights.keys()),
+            weights=list(event_weights.values())
+        )[0]
         product_id = random.randint(1, 100)
         timestamp = datetime.now() - timedelta(days=random.randint(0, 30))
         cur.execute("INSERT INTO events (user_id, event_type, product_id, timestamp) VALUES (%s, %s, %s, %s)", 

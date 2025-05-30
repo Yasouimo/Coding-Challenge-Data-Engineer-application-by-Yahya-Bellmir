@@ -202,8 +202,8 @@ ORDER BY total_revenue DESC;
 Query Performance Summary:
 | Query Type           | Basic Time (s) | Optimized Time (s) | Improvement (%) |
 |---------------------|----------------|-------------------|-----------------|
-| Weekly Active Users | 0.0705         | 0.0288           | 59.15          |
-| Revenue per Category| 0.0376         | 0.0039           | 89.62          |
+| Weekly Active Users | 0.1022         | 0.0163           | 84.07          |
+| Revenue per Category| 0.0162         | 0.0080           | 50.70          |
 ```
 
 ### Applied Index Strategy

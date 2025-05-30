@@ -10,7 +10,7 @@ class QueryAnalyzer:
         self.conn = psycopg2.connect(
             dbname="e-commerce_platform",
             user="postgres",
-            password="Your_Pass",  # Replace with your actual password
+            password="789456123",  # Replace with your actual password
             host="localhost"
         )
         self.cur = self.conn.cursor()
