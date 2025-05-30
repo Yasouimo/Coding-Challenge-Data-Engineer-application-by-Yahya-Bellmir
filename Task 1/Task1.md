@@ -57,6 +57,7 @@ CREATE TABLE users (
     signup_date DATE,
     country VARCHAR(50)
 );
+CREATE INDEX idx_users_country ON users(country);
 
 -- Products table
 CREATE TABLE products (
@@ -64,15 +65,21 @@ CREATE TABLE products (
     category VARCHAR(50),
     price DECIMAL(10,2)
 );
+CREATE INDEX idx_products_category ON products(category);
 
 -- Events table
 CREATE TABLE events (
     event_id SERIAL PRIMARY KEY,
-    user_id INTEGER REFERENCES users(user_id),
+    user_id INTEGER,
     event_type VARCHAR(20) CHECK (event_type IN ('viewed', 'add-to-cart', 'purchased')),
-    product_id INTEGER REFERENCES products(product_id),
-    timestamp TIMESTAMP
+    product_id INTEGER,
+    timestamp TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (product_id) REFERENCES products(product_id)
 );
+-- Create composite index for common query patterns
+CREATE INDEX idx_events_type_timestamp ON events(event_type, timestamp);
+CREATE INDEX idx_events_user_timestamp ON events(user_id, timestamp);
 ```
 
 ## Sample Data Generation
@@ -177,28 +184,31 @@ ORDER BY total_revenue DESC;
 
 ## Performance Optimization
 
+### Implemented Optimizations
+1. Weekly Active Users Query:
+   - Added date range filtering to limit data scope
+   - Used composite index (idx_events_user_timestamp) for efficient lookups
+   - Removed unnecessary materialized CTE
+   - Achieved 59.15% performance improvement
+
+2. Revenue per Category Query:
+   - Implemented efficient join strategy
+   - Used pre-aggregation for purchase counts
+   - Leveraged existing indexes for category and event type
+   - Achieved 89.62% performance improvement
+
 ### Benchmarking Results
 ```
 Query Performance Summary:
 | Query Type           | Basic Time (s) | Optimized Time (s) | Improvement (%) |
 |---------------------|----------------|-------------------|-----------------|
-| Weekly Active Users | 0.1405         | 0.0501           | 64.34          |
-| Revenue per Category| 0.0211         | 0.0112           | 46.75          |
+| Weekly Active Users | 0.0705         | 0.0288           | 59.15          |
+| Revenue per Category| 0.0376         | 0.0039           | 89.62          |
 ```
 
-### Optimization Techniques
-1. Materialized CTEs for better query planning
-2. Pre-aggregation for purchase counts
-3. Date filtering for recent data
-4. Index creation:
+### Applied Index Strategy
 ```sql
-CREATE INDEX idx_events_timestamp ON events(timestamp);
-CREATE INDEX idx_events_type ON events(event_type);
-CREATE INDEX idx_events_product ON events(product_id);
+CREATE INDEX idx_events_type_timestamp ON events(event_type, timestamp);
+CREATE INDEX idx_events_user_timestamp ON events(user_id, timestamp);
+CREATE INDEX idx_products_category ON products(category);
 ```
-
-### Key Improvements
-- WAU query optimization showed 64.34% improvement
-- Revenue calculation improved by 46.75%
-- Materialized CTEs reduced repeated calculations
-- Indexes improved join and filtering operations

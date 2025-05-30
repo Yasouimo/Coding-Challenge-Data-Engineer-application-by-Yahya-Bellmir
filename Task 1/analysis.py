@@ -10,15 +10,22 @@ class QueryAnalyzer:
         self.conn = psycopg2.connect(
             dbname="e-commerce_platform",
             user="postgres",
-            password="Your Password",  # Replace with your actual password
+            password="Your_Pass",  # Replace with your actual password
             host="localhost"
         )
         self.cur = self.conn.cursor()
         
-    def benchmark_query(self, query, name=""):
+    def benchmark_query(self, query, name="", batch_size=1000):
         start_time = time.time()
         self.cur.execute(query)
-        results = self.cur.fetchall()
+        
+        results = []
+        while True:
+            batch = self.cur.fetchmany(batch_size)
+            if not batch:
+                break
+            results.extend(batch)
+    
         execution_time = time.time() - start_time
         print(f"\n{name} Execution Time: {execution_time:.4f} seconds")
         return results, execution_time
@@ -36,20 +43,14 @@ class QueryAnalyzer:
         ORDER BY week;
         """
         
-        # Optimized query using materialized subquery
+        # Optimized query using date partitioning and index
         optimized_query = """
-        WITH weekly_users AS MATERIALIZED (
-            SELECT DISTINCT
-                DATE_TRUNC('week', timestamp) as week,
-                user_id
-            FROM events
-            WHERE timestamp >= NOW() - INTERVAL '30 days'
-        )
         SELECT 
-            week,
-            COUNT(*) as active_users
-        FROM weekly_users
-        GROUP BY week
+            DATE_TRUNC('week', timestamp) as week,
+            COUNT(DISTINCT user_id) as active_users
+        FROM events
+        WHERE timestamp >= CURRENT_DATE - INTERVAL '90 days'
+        GROUP BY DATE_TRUNC('week', timestamp)
         ORDER BY week;
         """
         
@@ -73,21 +74,18 @@ class QueryAnalyzer:
         ORDER BY total_revenue DESC;
         """
         
-        # Optimized query using CTEs and pre-aggregation
+        # Optimized query using index-optimized joins
         optimized_query = """
-        WITH purchase_counts AS MATERIALIZED (
-            SELECT 
-                product_id,
-                COUNT(*) as purchase_count
-            FROM events
-            WHERE event_type = 'purchased'
-            GROUP BY product_id
-        )
         SELECT 
             p.category,
-            SUM(p.price * pc.purchase_count) as total_revenue
-        FROM purchase_counts pc
-        JOIN products p ON pc.product_id = p.product_id
+            SUM(p.price * event_counts.purchase_count) as total_revenue
+        FROM products p
+        JOIN (
+            SELECT product_id, COUNT(*) as purchase_count
+            FROM events 
+            WHERE event_type = 'purchased'
+            GROUP BY product_id
+        ) event_counts ON p.product_id = event_counts.product_id
         GROUP BY p.category
         ORDER BY total_revenue DESC;
         """
@@ -117,16 +115,6 @@ class QueryAnalyzer:
         print("\n=== Performance Report ===")
         print("\nQuery Performance Summary:")
         print(tabulate(performance_summary, headers='keys', tablefmt='pipe', floatfmt='.4f'))
-        
-        # Create recommendations
-        print("\nOptimization Recommendations:")
-        print("1. Added materialized CTEs for better query planning")
-        print("2. Used pre-aggregation for purchase counts")
-        print("3. Added date filtering for recent data only")
-        print("4. Consider adding these indexes for better performance:")
-        print("   - CREATE INDEX idx_events_timestamp ON events(timestamp);")
-        print("   - CREATE INDEX idx_events_type ON events(event_type);")
-        print("   - CREATE INDEX idx_events_product ON events(product_id);")
 
     def __del__(self):
         self.cur.close()
