@@ -17,10 +17,16 @@ This repository contains a comprehensive implementation of data engineering task
 ├── Task 2/
 │   ├── Task2.md
 │   └── Task2.ipynb
-└── Task 3/
-    ├── Task3.md
-    ├── behavioral_segmentation.py
-    ├── check_results.py
+├── Task 3/
+│   ├── Task3.md
+│   ├── behavioral_segmentation.py
+│   ├── check_results.py
+│   └── requirements.txt
+└── Task 4/
+    ├── Task4.md
+    ├── .env
+    ├── analysis_results_20250530_225757.json
+    ├── event_type_categorizer.py
     └── requirements.txt
 ```
 
@@ -40,6 +46,12 @@ This repository contains a comprehensive implementation of data engineering task
 - Elasticsearch integration
 - AI-driven user segmentation
 - Documentation: [Task 3/Task3.md](Task%203/Task3.md)
+
+### Task 4: Event Analysis with LLM Integration
+- E-commerce event tracking analysis
+- Gemini API integration for advanced insights
+- Customer behavior pattern recognition
+- Documentation: [Task 4/Task4.md](Task%204/Task4.md)
 
 ## Technical Stack
 - PostgreSQL
