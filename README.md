@@ -71,6 +71,7 @@ Each task has detailed documentation in its respective folder:
 - Task 1: Database optimization
 - Task 2: User retention analysis
 - Task 3: AI segmentation
+- Task 4: Event type Categorisation with LLms API.
 
 ### Technical Summary
 The `Coding_Challenge_Summary.pdf` provides a one-page overview of:
