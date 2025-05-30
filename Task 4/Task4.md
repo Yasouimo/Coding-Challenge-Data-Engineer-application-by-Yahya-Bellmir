@@ -38,29 +38,35 @@ We analyzed a dataset containing 9,800 e-commerce events that track user behavio
 Using the Gemini API, we categorized events into behavioral segments and analyzed patterns:
 
 ### Customer Segments Identified
+
 1. **Browsers (60%)**
+   - Primary events: `view_item` (3,043), `view_item_list` (2,514)
    - High view-item rate
    - Low add-to-cart conversion
    - Primarily browsing behavior
 
 2. **Cart Abandoners (20%)**
-   - Add items but don't checkout
-   - Significant revenue opportunity
+   - Primary events: `add_to_cart` (1,579), `remove_from_cart` (515)
+   - Drop-off before `begin_checkout` (360)
    - High cart abandonment rate (87.77%)
+   - Significant revenue opportunity
 
 3. **Completers (10%)**
-   - Complete purchase journey
-   - High conversion rate
+   - Event sequence: `begin_checkout` → `add_payment_info` → `add_shipping_info` → `purchase`
+   - Complete purchase journey (193 purchases)
    - Core revenue generators
+   - Full funnel conversion
 
 4. **View Cart Users (8%)**
-   - Multiple cart views
+   - Primary event: `view_cart` (762)
+   - Multiple cart views without proceeding to `begin_checkout`
    - Hesitant behavior
    - Price-sensitive group
 
 5. **Wishlist Users (5%)**
-   - High wishlist usage
-   - Low immediate purchase rate
+   - Primary event: `add_to_wishlist` (489)
+   - Low `purchase` conversion rate
+   - High wishlist-to-cart ratio
    - Potential for targeted marketing
 
 ## 4. Key Metrics & Insights
