@@ -1,4 +1,4 @@
-# Data Engineering Challenge for E-commerce Platform
+# Data Engineering Challenge for E-commerce Platform 
 
 ![Image](https://github.com/user-attachments/assets/be8d1bbd-8f09-4e03-a018-e2d400e2ae40)
 
