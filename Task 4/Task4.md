@@ -1,6 +1,12 @@
 # Task 4: E-commerce Event Analysis with Database Integration
 
-## 1. Event Data Overview
+## 1. Event Analysis Overview
+
+We analyzed a dataset containing 9,800 e-commerce events that track user behavior across the shopping journey. Here's the distribution of events:
+
+We got the events from this website :
+
+https://magefan.com/blog/ecommerce-events-to-track-in-ga4?srsltid=AfmBOorOpulfrGQ1gmZPtd0LjLdLWmvQOqusoJCYQwP1z-jHZOFFTaGF
 
 ### Raw Event Distribution
 | Event Type          | Count | Percentage |
@@ -27,95 +33,96 @@ This project implements an e-commerce event analysis system that connects to a P
 ### Technologies Used
 - Python for data processing
 - PostgreSQL for data storage
+- Gemini API for advanced analysis
 - Pandas for data manipulation
-- JSON for results storage
 
-### Integration with AI Services
-The system experimented with Hugging Face's API for event categorization to explore AI-powered classification. While the integration provided interesting insights, a rule-based approach proved more reliable for our specific e-commerce event types.
+### Key Components
+- EcommerceAnalyzer class for data processing
+- Database connectivity
+- Event categorization system
+- Gemini API integration
+- Results storage in JSON format
 
-## 3. Core Components
+## 3. LLM-Based Categorization
 
-### Database Integration
-- PostgreSQL connection handling
-- Event data retrieval using SQL aggregation
-- Error handling and connection management
+Using the Gemini API, we categorized events into behavioral segments and analyzed patterns:
 
-### Event Categorization System
-The system categorizes events into four main behavioral groups:
+### Customer Segments Identified
 
-1. **Browsing Events**
-   - Keywords: 'view', 'browse', 'search'
-   - Captures product discovery behavior
-   - Examples: view_item, view_item_list, view_cart
+1. **Browsers (60%)**
+   - Primary events: `view_item` (3,043), `view_item_list` (2,514)
+   - High view-item rate
+   - Low add-to-cart conversion
+   - Primarily browsing behavior
 
-2. **Consideration Events**
-   - Keywords: 'cart', 'wishlist'
-   - Tracks shopping cart interactions
-   - Examples: add_to_cart, remove_from_cart, add_to_wishlist
+2. **Cart Abandoners (20%)**
+   - Primary events: `add_to_cart` (1,579), `remove_from_cart` (515)
+   - Drop-off before `begin_checkout` (360)
+   - High cart abandonment rate (87.77%)
+   - Significant revenue opportunity
 
-3. **Conversion Events**
-   - Keywords: 'purchase', 'checkout', 'payment'
-   - Monitors purchase completion
-   - Examples: begin_checkout, add_payment_info, purchase
+3. **Completers (10%)**
+   - Event sequence: `begin_checkout` → `add_payment_info` → `add_shipping_info` → `purchase`
+   - Complete purchase journey (193 purchases)
+   - Core revenue generators
+   - Full funnel conversion
 
-4. **Retention Events**
-   - Keywords: 'return', 'review'
-   - Tracks post-purchase engagement
-   - Examples: product reviews, return requests
+4. **View Cart Users (8%)**
+   - Primary event: `view_cart` (762)
+   - Multiple cart views without proceeding to `begin_checkout`
+   - Hesitant behavior
+   - Price-sensitive group
 
-## 4. Analysis Results
+5. **Wishlist Users (5%)**
+   - Primary event: `add_to_wishlist` (489)
+   - Low `purchase` conversion rate
+   - High wishlist-to-cart ratio
+   - Potential for targeted marketing
 
-Based on our latest analysis (timestamp: 2025-05-31 19:21:30), the system identified the following distribution:
+### Gemini API Prompt
+The following structured prompt was used to generate the LLM analysis:
 
-### Event Distribution
-- Total Events Analyzed: 10
-- Category Breakdown:
-  - Browsing: 40% (4 events)
-  - Consideration: 30% (3 events)
-  - Conversion: 30% (3 events)
-  - Retention: 0% (0 events)
+```text
+Analyze this e-commerce behavioral data and provide a comprehensive report:
 
-### Detailed Event Categorization
+DATA:
+- Total Events: 9,800
+- Conversion Funnel: View Item (3,043) → Add to Cart (1,579) → Begin Checkout (360) → Purchase (193)
+- Supporting Events: View Cart (762), Wishlist (489), Remove from Cart (515)
+- Conversion Rates: View→Cart (51.9%), Cart→Checkout (22.8%), Checkout→Purchase (53.6%)
 
-1. **Browsing Category (40%)**
-   - view_item
-   - view_item_list
-   - view_cart
-   - add_shipping_info
+PROVIDE ANALYSIS ON:
 
-2. **Consideration Category (30%)**
-   - add_to_cart
-   - remove_from_cart
-   - add_to_wishlist
+1. CUSTOMER SEGMENTATION (classify into behavioral segments):
+   - Segment characteristics and size
+   - Behavioral patterns for each segment
+   - Revenue potential ranking
 
-3. **Conversion Category (30%)**
-   - begin_checkout
-   - add_payment_info
-   - purchase
+2. CONVERSION BOTTLENECKS (identify top 3 critical issues):
+   - Specific funnel stage problems
+   - Quantified impact on revenue
+   - Root cause hypotheses
 
-## 5. Technical Implementation
+3. IMPROVEMENT RECOMMENDATIONS (5 actionable strategies):
+   - Priority ranking (High/Medium/Low)
+   - Expected conversion lift %
+   - Implementation difficulty
+   - Specific tactics
 
-### Data Fetching
-```sql
-SELECT 
-    event_type,
-    COUNT(*) as event_count,
-    COUNT(DISTINCT user_id) as unique_users
-FROM events 
-GROUP BY event_type
-ORDER BY event_count DESC;
+4. HIGH-VALUE BEHAVIOR PATTERNS:
+   - Identify power user behaviors
+   - Cross-selling opportunities
+   - Retention indicators
+
+5. BUSINESS IMPACT METRICS:
+   - Revenue loss from abandonment
+   - Opportunity sizing
+   - ROI potential for fixes
 ```
 
-### Analysis Storage
-Results are stored in JSON format containing:
-- Analysis timestamp
-- Event summaries
-- Category distribution
-- Detailed insights per category
+### Event Categorization Strategy
+The events were systematically categorized into three main behavioral phases:
 
-## 6. Key Insights
-
-### Behavioral Patterns
 1. **Discovery Phase**
    - Highest event concentration (40%)
    - Multiple viewing events before cart addition
