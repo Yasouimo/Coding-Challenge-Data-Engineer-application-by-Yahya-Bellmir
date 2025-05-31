@@ -69,6 +69,88 @@ Using the Gemini API, we categorized events into behavioral segments and analyze
    - High wishlist-to-cart ratio
    - Potential for targeted marketing
 
+### Gemini API Prompt
+The following structured prompt was used to generate the LLM analysis:
+
+```text
+Analyze this e-commerce behavioral data and provide a comprehensive report:
+
+DATA:
+- Total Events: 9,800
+- Conversion Funnel: View Item (3,043) → Add to Cart (1,579) → Begin Checkout (360) → Purchase (193)
+- Supporting Events: View Cart (762), Wishlist (489), Remove from Cart (515)
+- Conversion Rates: View→Cart (51.9%), Cart→Checkout (22.8%), Checkout→Purchase (53.6%)
+
+PROVIDE ANALYSIS ON:
+
+1. CUSTOMER SEGMENTATION (classify into behavioral segments):
+   - Segment characteristics and size
+   - Behavioral patterns for each segment
+   - Revenue potential ranking
+
+2. CONVERSION BOTTLENECKS (identify top 3 critical issues):
+   - Specific funnel stage problems
+   - Quantified impact on revenue
+   - Root cause hypotheses
+
+3. IMPROVEMENT RECOMMENDATIONS (5 actionable strategies):
+   - Priority ranking (High/Medium/Low)
+   - Expected conversion lift %
+   - Implementation difficulty
+   - Specific tactics
+
+4. HIGH-VALUE BEHAVIOR PATTERNS:
+   - Identify power user behaviors
+   - Cross-selling opportunities
+   - Retention indicators
+
+5. BUSINESS IMPACT METRICS:
+   - Revenue loss from abandonment
+   - Opportunity sizing
+   - ROI potential for fixes
+```
+
+### Event Categorization Strategy
+The events were systematically categorized into three main behavioral phases:
+
+1. **Discovery Phase**
+   - Primary Events: view_item, view_item_list
+   - Behavioral Indicator: Initial product discovery and browsing
+   - User Intent: Research and exploration
+
+2. **Consideration Phase**
+   - Primary Events: add_to_cart, view_cart, add_to_wishlist, remove_from_cart
+   - Behavioral Indicator: Active product evaluation
+   - User Intent: Product comparison and decision-making
+
+3. **Conversion Phase**
+   - Primary Events: begin_checkout, add_shipping_info, add_payment_info, purchase
+   - Behavioral Indicator: Purchase commitment
+   - User Intent: Transaction completion
+
+### Derived Event Categories
+The analysis identified additional behavioral patterns:
+
+1. **Hesitant Buyers**
+   - Trigger: Multiple cart views before checkout
+   - Business Value: Identifying price sensitivity
+   - Optimization Target: Checkout confidence
+
+2. **Research-Intensive Users**
+   - Trigger: High view-to-action ratio
+   - Business Value: Content effectiveness measurement
+   - Optimization Target: Product information
+
+3. **Quick Decision Makers**
+   - Trigger: Rapid view-to-purchase journey
+   - Business Value: Optimal user experience patterns
+   - Optimization Target: Streamlined conversion
+
+4. **Collection Builders**
+   - Trigger: High wishlist-to-purchase ratio
+   - Business Value: Long-term purchase intent
+   - Optimization Target: Retention marketing
+
 ## 4. Key Metrics & Insights
 
 ### Funnel Analysis
