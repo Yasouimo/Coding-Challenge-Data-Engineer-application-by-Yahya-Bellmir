@@ -33,7 +33,20 @@ This project implements an e-commerce event analysis system that connects to a P
 ### Integration with AI Services
 The system experimented with Hugging Face's API for event categorization to explore AI-powered classification. While the integration provided interesting insights, a rule-based approach proved more reliable for our specific e-commerce event types.
 
-## 3. Core Components
+## 3. Technical Implementation
+
+### Data Fetching
+```sql
+SELECT 
+    event_type,
+    COUNT(*) as event_count,
+    COUNT(DISTINCT user_id) as unique_users
+FROM events 
+GROUP BY event_type
+ORDER BY event_count DESC;
+```
+
+## 4. Core Components
 
 ### Database Integration
 - PostgreSQL connection handling
@@ -58,7 +71,7 @@ The system categorizes events into four main behavioral groups:
    - Monitors purchase completion
    - Examples: begin_checkout, add_payment_info, purchase
 
-## 4. Analysis Results
+## 5. Analysis Results
 
 Based on our latest analysis (timestamp: 2025-05-31 19:21:30), the system identified the following distribution:
 
@@ -88,18 +101,6 @@ Based on our latest analysis (timestamp: 2025-05-31 19:21:30), the system identi
    - add_payment_info
    - purchase
 
-## 5. Technical Implementation
-
-### Data Fetching
-```sql
-SELECT 
-    event_type,
-    COUNT(*) as event_count,
-    COUNT(DISTINCT user_id) as unique_users
-FROM events 
-GROUP BY event_type
-ORDER BY event_count DESC;
-```
 
 ### Analysis Storage
 Results are stored in JSON format containing:
