@@ -4,7 +4,7 @@
 
 We analyzed a dataset containing 9,800 e-commerce events that track user behavior across the shopping journey. Here's the distribution of events:
 
-We got the events from this website :
+We got the events from this website : 
 
 https://magefan.com/blog/ecommerce-events-to-track-in-ga4?srsltid=AfmBOorOpulfrGQ1gmZPtd0LjLdLWmvQOqusoJCYQwP1z-jHZOFFTaGF
 
