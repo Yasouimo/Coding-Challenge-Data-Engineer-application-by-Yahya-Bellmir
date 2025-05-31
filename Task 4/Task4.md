@@ -28,7 +28,7 @@ https://magefan.com/blog/ecommerce-events-to-track-in-ga4?srsltid=AfmBOorOpulfrG
 - Python for data processing
 - PostgreSQL for data storage
 - Gemini API for advanced analysis
-- Pandas for data manipulation
+- Pandas for data manipulation 
 
 ### Key Components
 - EcommerceAnalyzer class for data processing
