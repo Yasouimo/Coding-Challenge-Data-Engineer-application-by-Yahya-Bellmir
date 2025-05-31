@@ -58,11 +58,6 @@ The system categorizes events into four main behavioral groups:
    - Monitors purchase completion
    - Examples: begin_checkout, add_payment_info, purchase
 
-4. **Retention Events**
-   - Keywords: 'return', 'review'
-   - Tracks post-purchase engagement
-   - Examples: product reviews, return requests
-
 ## 4. Analysis Results
 
 Based on our latest analysis (timestamp: 2025-05-31 19:21:30), the system identified the following distribution:
