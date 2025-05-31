@@ -21,7 +21,7 @@ class QueryAnalyzer:
         
         results = []
         while True:
-            batch = self.cur.fetchmany(batch_size)
+            batch = self.cur.fetchmany(batch_size) # Fetchmany instead of fetch by size
             if not batch:
                 break
             results.extend(batch)
