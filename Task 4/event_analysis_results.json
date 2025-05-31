@@ -1,0 +1,74 @@
+{
+    "analysis_timestamp": "2025-05-31 19:21:30",
+    "summary": {
+        "total_events": 10,
+        "category_distribution": {
+            "browsing": {
+                "count": 4,
+                "percentage": 40.0,
+                "event_types": [
+                    "view_item",
+                    "view_item_list",
+                    "view_cart",
+                    "add_shipping_info"
+                ]
+            },
+            "consideration": {
+                "count": 3,
+                "percentage": 30.0,
+                "event_types": [
+                    "add_to_cart",
+                    "remove_from_cart",
+                    "add_to_wishlist"
+                ]
+            },
+            "conversion": {
+                "count": 3,
+                "percentage": 30.0,
+                "event_types": [
+                    "begin_checkout",
+                    "add_payment_info",
+                    "purchase"
+                ]
+            },
+            "retention": {
+                "count": 0,
+                "percentage": 0.0,
+                "event_types": []
+            }
+        }
+    },
+    "insights": [
+        {
+            "category": "Browsing",
+            "event_count": 4,
+            "percentage": 40.0,
+            "events": [
+                "view_item",
+                "view_item_list",
+                "view_cart",
+                "add_shipping_info"
+            ]
+        },
+        {
+            "category": "Consideration",
+            "event_count": 3,
+            "percentage": 30.0,
+            "events": [
+                "add_to_cart",
+                "remove_from_cart",
+                "add_to_wishlist"
+            ]
+        },
+        {
+            "category": "Conversion",
+            "event_count": 3,
+            "percentage": 30.0,
+            "events": [
+                "begin_checkout",
+                "add_payment_info",
+                "purchase"
+            ]
+        }
+    ]
+}

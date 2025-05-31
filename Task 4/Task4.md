@@ -1,12 +1,6 @@
-# Task 4: E-commerce Event Analysis with LLM Integration
+# Task 4: E-commerce Event Analysis with Database Integration
 
-## 1. Event Analysis Overview
-
-We analyzed a dataset containing 9,800 e-commerce events that track user behavior across the shopping journey. Here's the distribution of events:
-
-We got the events from this website :
-
-https://magefan.com/blog/ecommerce-events-to-track-in-ga4?srsltid=AfmBOorOpulfrGQ1gmZPtd0LjLdLWmvQOqusoJCYQwP1z-jHZOFFTaGF
+## 1. Event Data Overview
 
 ### Raw Event Distribution
 | Event Type          | Count | Percentage |
@@ -22,180 +16,144 @@ https://magefan.com/blog/ecommerce-events-to-track-in-ga4?srsltid=AfmBOorOpulfrG
 | add_shipping_info  | 266  | 2.71%  |
 | purchase           | 193  | 1.97%  |
 
-## 2. Implementation Details
+Total events analyzed: 9,800
+
+Note: Event types sourced from GA4 E-commerce event specifications.
+
+## 2. Implementation Overview
+
+This project implements an e-commerce event analysis system that connects to a PostgreSQL database to fetch and analyze user behavior events. The system categorizes events into meaningful behavioral groups and provides detailed analytics.
 
 ### Technologies Used
 - Python for data processing
 - PostgreSQL for data storage
-- Gemini API for advanced analysis
 - Pandas for data manipulation
+- JSON for results storage
 
-### Key Components
-- EcommerceAnalyzer class for data processing
-- Database connectivity
-- Event categorization system
-- Gemini API integration
-- Results storage in JSON format
+### Integration with AI Services
+The system experimented with Hugging Face's API for event categorization to explore AI-powered classification. While the integration provided interesting insights, a rule-based approach proved more reliable for our specific e-commerce event types.
 
-## 3. LLM-Based Categorization
+## 3. Core Components
 
-Using the Gemini API, we categorized events into behavioral segments and analyzed patterns:
+### Database Integration
+- PostgreSQL connection handling
+- Event data retrieval using SQL aggregation
+- Error handling and connection management
 
-### Customer Segments Identified
+### Event Categorization System
+The system categorizes events into four main behavioral groups:
 
-1. **Browsers (60%)**
-   - Primary events: `view_item` (3,043), `view_item_list` (2,514)
-   - High view-item rate
-   - Low add-to-cart conversion
-   - Primarily browsing behavior
+1. **Browsing Events**
+   - Keywords: 'view', 'browse', 'search'
+   - Captures product discovery behavior
+   - Examples: view_item, view_item_list, view_cart
 
-2. **Cart Abandoners (20%)**
-   - Primary events: `add_to_cart` (1,579), `remove_from_cart` (515)
-   - Drop-off before `begin_checkout` (360)
-   - High cart abandonment rate (87.77%)
-   - Significant revenue opportunity
+2. **Consideration Events**
+   - Keywords: 'cart', 'wishlist'
+   - Tracks shopping cart interactions
+   - Examples: add_to_cart, remove_from_cart, add_to_wishlist
 
-3. **Completers (10%)**
-   - Event sequence: `begin_checkout` → `add_payment_info` → `add_shipping_info` → `purchase`
-   - Complete purchase journey (193 purchases)
-   - Core revenue generators
-   - Full funnel conversion
+3. **Conversion Events**
+   - Keywords: 'purchase', 'checkout', 'payment'
+   - Monitors purchase completion
+   - Examples: begin_checkout, add_payment_info, purchase
 
-4. **View Cart Users (8%)**
-   - Primary event: `view_cart` (762)
-   - Multiple cart views without proceeding to `begin_checkout`
-   - Hesitant behavior
-   - Price-sensitive group
+4. **Retention Events**
+   - Keywords: 'return', 'review'
+   - Tracks post-purchase engagement
+   - Examples: product reviews, return requests
 
-5. **Wishlist Users (5%)**
-   - Primary event: `add_to_wishlist` (489)
-   - Low `purchase` conversion rate
-   - High wishlist-to-cart ratio
-   - Potential for targeted marketing
+## 4. Analysis Results
 
-### Gemini API Prompt
-The following structured prompt was used to generate the LLM analysis:
+Based on our latest analysis (timestamp: 2025-05-31 19:21:30), the system identified the following distribution:
 
-```text
-Analyze this e-commerce behavioral data and provide a comprehensive report:
+### Event Distribution
+- Total Events Analyzed: 10
+- Category Breakdown:
+  - Browsing: 40% (4 events)
+  - Consideration: 30% (3 events)
+  - Conversion: 30% (3 events)
+  - Retention: 0% (0 events)
 
-DATA:
-- Total Events: 9,800
-- Conversion Funnel: View Item (3,043) → Add to Cart (1,579) → Begin Checkout (360) → Purchase (193)
-- Supporting Events: View Cart (762), Wishlist (489), Remove from Cart (515)
-- Conversion Rates: View→Cart (51.9%), Cart→Checkout (22.8%), Checkout→Purchase (53.6%)
+### Detailed Event Categorization
 
-PROVIDE ANALYSIS ON:
+1. **Browsing Category (40%)**
+   - view_item
+   - view_item_list
+   - view_cart
+   - add_shipping_info
 
-1. CUSTOMER SEGMENTATION (classify into behavioral segments):
-   - Segment characteristics and size
-   - Behavioral patterns for each segment
-   - Revenue potential ranking
+2. **Consideration Category (30%)**
+   - add_to_cart
+   - remove_from_cart
+   - add_to_wishlist
 
-2. CONVERSION BOTTLENECKS (identify top 3 critical issues):
-   - Specific funnel stage problems
-   - Quantified impact on revenue
-   - Root cause hypotheses
+3. **Conversion Category (30%)**
+   - begin_checkout
+   - add_payment_info
+   - purchase
 
-3. IMPROVEMENT RECOMMENDATIONS (5 actionable strategies):
-   - Priority ranking (High/Medium/Low)
-   - Expected conversion lift %
-   - Implementation difficulty
-   - Specific tactics
+## 5. Technical Implementation
 
-4. HIGH-VALUE BEHAVIOR PATTERNS:
-   - Identify power user behaviors
-   - Cross-selling opportunities
-   - Retention indicators
-
-5. BUSINESS IMPACT METRICS:
-   - Revenue loss from abandonment
-   - Opportunity sizing
-   - ROI potential for fixes
+### Data Fetching
+```sql
+SELECT 
+    event_type,
+    COUNT(*) as event_count,
+    COUNT(DISTINCT user_id) as unique_users
+FROM events 
+GROUP BY event_type
+ORDER BY event_count DESC;
 ```
 
-### Event Categorization Strategy
-The events were systematically categorized into three main behavioral phases:
+### Analysis Storage
+Results are stored in JSON format containing:
+- Analysis timestamp
+- Event summaries
+- Category distribution
+- Detailed insights per category
 
+## 6. Key Insights
+
+### Behavioral Patterns
 1. **Discovery Phase**
-   - Primary Events: view_item, view_item_list
-   - Behavioral Indicator: Initial product discovery and browsing
-   - User Intent: Research and exploration
+   - Highest event concentration (40%)
+   - Multiple viewing events before cart addition
+   - Important for initial user engagement
 
-2. **Consideration Phase**
-   - Primary Events: add_to_cart, view_cart, add_to_wishlist, remove_from_cart
-   - Behavioral Indicator: Active product evaluation
-   - User Intent: Product comparison and decision-making
+2. **Shopping Intent**
+   - Equal distribution between consideration and conversion (30% each)
+   - Clear progression from cart addition to purchase
+   - Balanced conversion funnel
 
-3. **Conversion Phase**
-   - Primary Events: begin_checkout, add_shipping_info, add_payment_info, purchase
-   - Behavioral Indicator: Purchase commitment
-   - User Intent: Transaction completion
+3. **Purchase Behavior**
+   - Strong presence of payment and checkout events
+   - Complete purchase journey tracking
+   - Clear conversion path identification
 
-### Derived Event Categories
-The analysis identified additional behavioral patterns:
+## 7. System Benefits
 
-1. **Hesitant Buyers**
-   - Trigger: Multiple cart views before checkout
-   - Business Value: Identifying price sensitivity
-   - Optimization Target: Checkout confidence
+1. **Real-time Analysis**
+   - Direct database connectivity
+   - Immediate event processing
+   - Up-to-date insights
 
-2. **Research-Intensive Users**
-   - Trigger: High view-to-action ratio
-   - Business Value: Content effectiveness measurement
-   - Optimization Target: Product information
+2. **Scalable Architecture**
+   - SQL-based aggregation
+   - Efficient data handling
+   - Robust error management
 
-3. **Quick Decision Makers**
-   - Trigger: Rapid view-to-purchase journey
-   - Business Value: Optimal user experience patterns
-   - Optimization Target: Streamlined conversion
-
-4. **Collection Builders**
-   - Trigger: High wishlist-to-purchase ratio
-   - Business Value: Long-term purchase intent
-   - Optimization Target: Retention marketing
-
-## 4. Key Metrics & Insights
-
-### Funnel Analysis
-1. Product Views: 3,043 (100%)
-2. Cart Additions: 1,579 (51.89%)
-3. Cart Views: 762 (48.26%)
-4. Checkout Started: 360 (47.24%)
-5. Purchase Complete: 193 (6.34% overall conversion)
-
-### Critical Patterns
-- Cart Abandonment Rate: 87.77%
-- Checkout Abandonment: 46.39%
-- View-to-Cart Conversion: 51.89%
-- Wishlist Usage: 16.07%
-- Cart Removal Rate: 32.62%
-
-## 5. Generated Insights
-
-The LLM analysis provided actionable insights for improvement:
-
-### High-Priority Recommendations
-1. Optimize checkout process (Expected lift: 15-20%)
-2. Implement cart abandonment emails (Expected lift: 10-15%)
-3. Improve product information display (Expected lift: 5-10%)
-4. Enhance website UX/UI (Expected lift: 8-12%)
-5. Target wishlist users with promotions (Expected lift: 3-5%)
-
-### Bottleneck Analysis
-1. Add to Cart → Checkout (77.2% drop)
-2. Checkout → Purchase (46.4% drop)
-3. View Item → Add to Cart (48.1% drop)
-
-## 6. Results Storage
-
-All analysis results are stored in JSON format with timestamp-based naming:
-- Event distribution data
-- Funnel analysis metrics
-- Pattern identification
-- Derived events
-- LLM analysis results
+3. **Actionable Insights**
+   - Clear event categorization
+   - Percentage-based analysis
+   - JSON-formatted results
 
 ## Conclusion
 
-The implementation successfully leveraged LLM technology to provide deeper insights into e-commerce behavior patterns. The combination of traditional analytics with AI-driven analysis offers actionable recommendations for improving conversion rates and user experience.
+The implementation successfully provides a clear picture of user behavior patterns in the e-commerce platform. The system's ability to categorize and analyze events offers valuable insights for understanding user journey and improving conversion rates.
+
+### Future Enhancements
+1. Advanced pattern recognition
+2. Time-based analysis
+3. User segment identification
+4. Custom event categorization rules
