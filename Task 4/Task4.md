@@ -1,6 +1,6 @@
 # Task 4: E-commerce Event Analysis with LLM Integration
 
-## 1. Event Analysis Overview
+## 1. Event Analysis Overview 
 
 We analyzed a dataset containing 9,800 e-commerce events that track user behavior across the shopping journey. Here's the distribution of events:
 
