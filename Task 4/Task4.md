@@ -31,7 +31,7 @@ This project implements an e-commerce event analysis system that connects to a P
 - JSON for results storage
 
 ### Integration with AI Services (TinyLlama via Ollama)
-Previously, the system experimented with Hugging Face's API for event categorization. For improved control and local inference, we now use the TinyLlama model running on Ollama. This allows for fast, local LLM-powered event categorization.
+For improved control and local inference, we will be using the TinyLlama model running on Ollama. This allows for fast, local LLM-powered event categorization.
 
 #### How TinyLlama Categorization Works
 - The system sends each event type to the TinyLlama model via the Ollama API.
