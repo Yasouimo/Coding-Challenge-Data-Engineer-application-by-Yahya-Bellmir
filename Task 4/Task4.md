@@ -82,7 +82,20 @@ To further enhance accuracy, we use keyword-based rules as a fallback. For examp
 - "purchase", "checkout", "payment" → Conversion
 - "remove", "delete" → Removal
 
-## 3. Core Components
+## 3. Technical Implementation
+
+### Data Fetching
+```sql
+SELECT 
+    event_type,
+    COUNT(*) as event_count,
+    COUNT(DISTINCT user_id) as unique_users
+FROM events 
+GROUP BY event_type
+ORDER BY event_count DESC;
+```
+
+## 4. Core Components
 
 ### Database Integration
 - PostgreSQL connection handling
@@ -107,12 +120,16 @@ The system categorizes events into four main behavioral groups:
    - Monitors purchase completion
    - Examples: begin_checkout, add_payment_info, add_shipping_info, purchase
 
+<<<<<<< HEAD
 4. **Removal Events**
    - Keywords: 'remove', 'delete'
    - Tracks removal actions
    - Examples: remove_from_cart
 
 ## 4. Analysis Results
+=======
+## 5. Analysis Results
+>>>>>>> dc0b9fa55c8edc4fa2edafd928856a17761e850c
 
 Based on our latest analysis using TinyLlama (timestamp: 2025-06-01), the system identified the following distribution:
 
@@ -141,6 +158,7 @@ Based on our latest analysis using TinyLlama (timestamp: 2025-06-01), the system
    - add_shipping_info
    - purchase
 
+<<<<<<< HEAD
 4. **Removal Category (10%)**
    - remove_from_cart
 
@@ -156,6 +174,8 @@ FROM events
 GROUP BY event_type
 ORDER BY event_count DESC;
 ```
+=======
+>>>>>>> dc0b9fa55c8edc4fa2edafd928856a17761e850c
 
 ### Analysis Storage
 Results are stored in JSON format containing:
