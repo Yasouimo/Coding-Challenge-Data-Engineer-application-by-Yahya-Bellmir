@@ -120,7 +120,6 @@ The system categorizes events into four main behavioral groups:
    - Monitors purchase completion
    - Examples: begin_checkout, add_payment_info, add_shipping_info, purchase
 
-<<<<<<< HEAD
 4. **Removal Events**
    - Keywords: 'remove', 'delete'
    - Tracks removal actions
