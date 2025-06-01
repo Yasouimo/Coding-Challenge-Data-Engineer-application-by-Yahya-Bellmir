@@ -24,9 +24,9 @@ This repository contains a comprehensive implementation of data engineering task
 │   └── requirements.txt
 └── Task 4/
     ├── Task4.md
-    ├── .env
-    ├── analysis_results_20250530_225757.json
-    ├── event_type_categorizer.py
+    ├── .env # API key configuration
+    ├── event_analysis_results.json # LLm analysis result
+    ├── event-type_categorizer.py
     └── requirements.txt
 ```
 
