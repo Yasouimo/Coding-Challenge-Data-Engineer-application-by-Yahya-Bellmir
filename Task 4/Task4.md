@@ -38,6 +38,18 @@ For improved control and local inference, we will be using the TinyLlama model r
 - A strict prompt is used to ensure the model returns only one of four categories: Browsing, Consideration, Conversion, or Removal.
 - If the model's response is unclear, a keyword-based fallback categorization is applied for reliability.
 
+
+### Data Fetching
+```sql
+SELECT 
+    event_type,
+    COUNT(*) as event_count,
+    COUNT(DISTINCT user_id) as unique_users
+FROM events 
+GROUP BY event_type
+ORDER BY event_count DESC;
+```
+
 #### Categorization Prompt Used
 ```text
 Categorize this e-commerce event into exactly one of these four categories:
