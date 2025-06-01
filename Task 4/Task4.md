@@ -30,8 +30,57 @@ This project implements an e-commerce event analysis system that connects to a P
 - Pandas for data manipulation
 - JSON for results storage
 
-### Integration with AI Services
-The system experimented with Hugging Face's API for event categorization to explore AI-powered classification. While the integration provided interesting insights, a rule-based approach proved more reliable for our specific e-commerce event types.
+### Integration with AI Services (TinyLlama via Ollama)
+Previously, the system experimented with Hugging Face's API for event categorization. For improved control and local inference, we now use the TinyLlama model running on Ollama. This allows for fast, local LLM-powered event categorization.
+
+#### How TinyLlama Categorization Works
+- The system sends each event type to the TinyLlama model via the Ollama API.
+- A strict prompt is used to ensure the model returns only one of four categories: Browsing, Consideration, Conversion, or Removal.
+- If the model's response is unclear, a keyword-based fallback categorization is applied for reliability.
+
+#### Categorization Prompt Used
+```text
+Categorize this e-commerce event into exactly one of these four categories:
+- Browsing: Viewing products or pages without clear intent to purchase
+- Consideration: Showing interest in products but not yet committing
+- Conversion: Actions that directly lead to or represent a purchase
+- Removal: Removing items from cart or wishlist
+
+Event: "{event_type}"
+Respond with only the category name (Browsing, Consideration, Conversion, or Removal) and nothing else.
+```
+
+#### Example Categorization Output
+```
+🔍 Analyzing 10 unique event types...
+  [1/10] Analyzing: view_item
+    → Browsing
+  [2/10] Analyzing: view_item_list
+    → Browsing
+  [3/10] Analyzing: add_to_cart
+    → Consideration
+  [4/10] Analyzing: view_cart
+    → Browsing
+  [5/10] Analyzing: remove_from_cart
+    → Removal
+  [6/10] Analyzing: add_to_wishlist
+    → Consideration
+  [7/10] Analyzing: begin_checkout
+    → Conversion
+  [8/10] Analyzing: add_payment_info
+    → Conversion
+  [9/10] Analyzing: add_shipping_info
+    → Conversion
+  [10/10] Analyzing: purchase
+    → Conversion
+```
+
+#### Improved Categorization with Keywords
+To further enhance accuracy, we use keyword-based rules as a fallback. For example:
+- "view", "browse", "search" → Browsing
+- "add", "wishlist", "cart" → Consideration
+- "purchase", "checkout", "payment" → Conversion
+- "remove", "delete" → Removal
 
 ## 3. Core Components
 
@@ -54,44 +103,46 @@ The system categorizes events into four main behavioral groups:
    - Examples: add_to_cart, remove_from_cart, add_to_wishlist
 
 3. **Conversion Events**
-   - Keywords: 'purchase', 'checkout', 'payment'
+   - Keywords: 'purchase', 'checkout', 'payment', 'shipping'
    - Monitors purchase completion
-   - Examples: begin_checkout, add_payment_info, purchase
+   - Examples: begin_checkout, add_payment_info, add_shipping_info, purchase
 
-4. **Retention Events**
-   - Keywords: 'return', 'review'
-   - Tracks post-purchase engagement
-   - Examples: product reviews, return requests
+4. **Removal Events**
+   - Keywords: 'remove', 'delete'
+   - Tracks removal actions
+   - Examples: remove_from_cart
 
 ## 4. Analysis Results
 
-Based on our latest analysis (timestamp: 2025-05-31 19:21:30), the system identified the following distribution:
+Based on our latest analysis using TinyLlama (timestamp: 2025-06-01), the system identified the following distribution:
 
 ### Event Distribution
 - Total Events Analyzed: 10
 - Category Breakdown:
-  - Browsing: 40% (4 events)
-  - Consideration: 30% (3 events)
-  - Conversion: 30% (3 events)
-  - Retention: 0% (0 events)
+  - Browsing: 30% (3 events)
+  - Consideration: 20% (2 events)
+  - Conversion: 40% (4 events)
+  - Removal: 10% (1 event)
 
 ### Detailed Event Categorization
 
-1. **Browsing Category (40%)**
+1. **Browsing Category (30%)**
    - view_item
    - view_item_list
    - view_cart
-   - add_shipping_info
 
-2. **Consideration Category (30%)**
+2. **Consideration Category (20%)**
    - add_to_cart
-   - remove_from_cart
    - add_to_wishlist
 
-3. **Conversion Category (30%)**
+3. **Conversion Category (40%)**
    - begin_checkout
    - add_payment_info
+   - add_shipping_info
    - purchase
+
+4. **Removal Category (10%)**
+   - remove_from_cart
 
 ## 5. Technical Implementation
 
@@ -117,19 +168,20 @@ Results are stored in JSON format containing:
 
 ### Behavioral Patterns
 1. **Discovery Phase**
-   - Highest event concentration (40%)
+   - High event concentration in browsing actions
    - Multiple viewing events before cart addition
    - Important for initial user engagement
 
 2. **Shopping Intent**
-   - Equal distribution between consideration and conversion (30% each)
+   - Consideration events show intent but not commitment
    - Clear progression from cart addition to purchase
-   - Balanced conversion funnel
 
 3. **Purchase Behavior**
    - Strong presence of payment and checkout events
    - Complete purchase journey tracking
-   - Clear conversion path identification
+
+4. **Removal Actions**
+   - Removal events are less frequent but important for understanding friction points
 
 ## 7. System Benefits
 
@@ -150,7 +202,7 @@ Results are stored in JSON format containing:
 
 ## Conclusion
 
-The implementation successfully provides a clear picture of user behavior patterns in the e-commerce platform. The system's ability to categorize and analyze events offers valuable insights for understanding user journey and improving conversion rates.
+The implementation successfully provides a clear picture of user behavior patterns in the e-commerce platform. By leveraging TinyLlama via Ollama for event categorization, combined with keyword-based rules, the system offers robust, explainable, and scalable analytics for understanding the user journey and improving conversion rates.
 
 ### Future Enhancements
 1. Advanced pattern recognition
