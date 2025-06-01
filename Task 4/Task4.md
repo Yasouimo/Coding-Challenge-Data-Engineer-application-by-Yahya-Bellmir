@@ -82,18 +82,6 @@ To further enhance accuracy, we use keyword-based rules as a fallback. For examp
 - "purchase", "checkout", "payment" → Conversion
 - "remove", "delete" → Removal
 
-## 3. Technical Implementation
-
-### Data Fetching
-```sql
-SELECT 
-    event_type,
-    COUNT(*) as event_count,
-    COUNT(DISTINCT user_id) as unique_users
-FROM events 
-GROUP BY event_type
-ORDER BY event_count DESC;
-```
 
 ## 4. Core Components
 
