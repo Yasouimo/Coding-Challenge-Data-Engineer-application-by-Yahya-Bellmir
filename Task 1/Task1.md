@@ -128,28 +128,33 @@ GROUP BY event_type;
 
 1. Weekly Active Users (WAU)
 ```sql
--- Basic Query
-SELECT 
-    DATE_TRUNC('week', timestamp) as week,
-    COUNT(DISTINCT user_id) as active_users
-FROM events
-GROUP BY week
-ORDER BY week;
-
--- Optimized Query
-WITH weekly_users AS MATERIALIZED (
-    SELECT DISTINCT
-        DATE_TRUNC('week', timestamp) as week,
-        user_id
-    FROM events
-    WHERE timestamp >= NOW() - INTERVAL '30 days'
-)
-SELECT 
-    week,
-    COUNT(*) as active_users
-FROM weekly_users
-GROUP BY week
-ORDER BY week;
+# Basic query
+        basic_query = """
+        SELECT 
+            p.category,
+            SUM(p.price) as total_revenue
+        FROM events e
+        JOIN products p ON e.product_id = p.product_id
+        WHERE e.event_type = 'purchased'
+        GROUP BY p.category
+        ORDER BY total_revenue DESC;
+        """
+        
+        # Optimized query using index-optimized joins
+        optimized_query = """
+        SELECT 
+            p.category,
+            SUM(p.price * event_counts.purchase_count) as total_revenue
+        FROM products p
+        JOIN (
+            SELECT product_id, COUNT(*) as purchase_count
+            FROM events 
+            WHERE event_type = 'purchased'
+            GROUP BY product_id
+        ) event_counts ON p.product_id = event_counts.product_id
+        GROUP BY p.category
+        ORDER BY total_revenue DESC;
+        """
 ```
 
 2. Revenue per Category
