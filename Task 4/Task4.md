@@ -125,10 +125,8 @@ The system categorizes events into four main behavioral groups:
    - Tracks removal actions
    - Examples: remove_from_cart
 
+
 ## 4. Analysis Results
-=======
-## 5. Analysis Results
->>>>>>> dc0b9fa55c8edc4fa2edafd928856a17761e850c
 
 Based on our latest analysis using TinyLlama (timestamp: 2025-06-01), the system identified the following distribution:
 
