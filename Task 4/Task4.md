@@ -221,8 +221,3 @@ Results are stored in JSON format containing:
 
 The implementation successfully provides a clear picture of user behavior patterns in the e-commerce platform. By leveraging TinyLlama via Ollama for event categorization, combined with keyword-based rules, the system offers robust, explainable, and scalable analytics for understanding the user journey and improving conversion rates.
 
-### Future Enhancements
-1. Advanced pattern recognition
-2. Time-based analysis
-3. User segment identification
-4. Custom event categorization rules
