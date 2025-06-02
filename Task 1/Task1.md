@@ -131,6 +131,30 @@ GROUP BY event_type;
 # Basic query
         basic_query = """
         SELECT 
+            DATE_TRUNC('week', timestamp) as week,
+            COUNT(DISTINCT user_id) as active_users
+        FROM events
+        GROUP BY week
+        ORDER BY week;
+        """
+        
+        # Optimized query using date partitioning and index
+        optimized_query = """
+        SELECT 
+            DATE_TRUNC('week', timestamp) as week,
+            COUNT(DISTINCT user_id) as active_users
+        FROM events
+        WHERE timestamp >= CURRENT_DATE - INTERVAL '90 days'
+        GROUP BY DATE_TRUNC('week', timestamp)
+        ORDER BY week;
+        """
+```
+
+2. Revenue per Category
+```sql
+# Basic query
+        basic_query = """
+        SELECT 
             p.category,
             SUM(p.price) as total_revenue
         FROM events e
@@ -155,36 +179,6 @@ GROUP BY event_type;
         GROUP BY p.category
         ORDER BY total_revenue DESC;
         """
-```
-
-2. Revenue per Category
-```sql
--- Basic Query
-SELECT 
-    p.category,
-    SUM(p.price) as total_revenue
-FROM events e
-JOIN products p ON e.product_id = p.product_id
-WHERE e.event_type = 'purchased'
-GROUP BY p.category
-ORDER BY total_revenue DESC;
-
--- Optimized Query
-WITH purchase_counts AS MATERIALIZED (
-    SELECT 
-        product_id,
-        COUNT(*) as purchase_count
-    FROM events
-    WHERE event_type = 'purchased'
-    GROUP BY product_id
-)
-SELECT 
-    p.category,
-    SUM(p.price * pc.purchase_count) as total_revenue
-FROM purchase_counts pc
-JOIN products p ON pc.product_id = p.product_id
-GROUP BY p.category
-ORDER BY total_revenue DESC;
 ```
 
 ## Performance Optimization
