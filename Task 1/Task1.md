@@ -189,13 +189,13 @@ ORDER BY total_revenue DESC;
    - Added date range filtering to limit data scope
    - Used composite index (idx_events_user_timestamp) for efficient lookups
    - Removed unnecessary materialized CTE
-   - Achieved 59.15% performance improvement
+   - Achieved 84.07% performance improvement
 
 2. Revenue per Category Query:
    - Implemented efficient join strategy
    - Used pre-aggregation for purchase counts
    - Leveraged existing indexes for category and event type
-   - Achieved 89.62% performance improvement
+   - Achieved 50.70% performance improvement
 
 ### Benchmarking Results
 ```
