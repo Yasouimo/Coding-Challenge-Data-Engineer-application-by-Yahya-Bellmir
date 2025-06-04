@@ -170,8 +170,7 @@ FROM events
 GROUP BY event_type
 ORDER BY event_count DESC;
 ```
-=======
->>>>>>> dc0b9fa55c8edc4fa2edafd928856a17761e850c
+
 
 ### Analysis Storage
 Results are stored in JSON format containing:
