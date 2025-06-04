@@ -155,7 +155,6 @@ Based on our latest analysis using TinyLlama (timestamp: 2025-06-01), the system
    - add_shipping_info
    - purchase
 
-<<<<<<< HEAD
 4. **Removal Category (10%)**
    - remove_from_cart
 
