@@ -85,7 +85,7 @@ ORDER BY event_count DESC;
 - **Conversion:** 2,677 events (26.8%) — 5 event types
 - **Removal:** 515 events (5.1%) — 1 event type
 
-**LLM Categorization Accuracy:** 100% (10/10 event types matched prompt intent)
+**LLM Categorization Accuracy:** 80% (8/10 event types matched prompt intent)
 
 ## 6. Key Insights
 
