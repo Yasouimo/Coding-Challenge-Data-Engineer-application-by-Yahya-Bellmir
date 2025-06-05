@@ -26,6 +26,35 @@ Analysis covers 10 unique e-commerce event types, totaling 10,000 events.
 - **Process:** Unique event types are sent to Mistral AI with a strict prompt for categorization: **Browse, Consideration, Conversion, or Removal** (no fallback, LLM-only).
 
 ### Categorization Prompt (Mistral AI)
+=======
+### Technologies Used
+- Python for data processing
+- PostgreSQL for data storage
+- Pandas for data manipulation
+- JSON for results storage
+
+### Integration with AI Services (TinyLlama via Ollama)
+For improved control and local inference, we will be using the TinyLlama model running on Ollama. This allows for fast, local LLM-powered event categorization.
+
+#### How TinyLlama Categorization Works
+- The system sends each event type to the TinyLlama model via the Ollama API.
+- A strict prompt is used to ensure the model returns only one of four categories: Browsing, Consideration, Conversion, or Removal.
+- If the model's response is unclear, a keyword-based fallback categorization is applied for reliability.
+
+
+### Data Fetching
+```sql
+SELECT 
+    event_type,
+    COUNT(*) as event_count,
+    COUNT(DISTINCT user_id) as unique_users
+FROM events 
+GROUP BY event_type
+ORDER BY event_count DESC;
+```
+
+#### Categorization Prompt Used
+>>>>>>> 61f5a02881796e31c82e5813fcc2c3744ca14ad1
 ```text
 Your task is to categorize an e-commerce event into ONLY ONE of the following four specific categories.
 Use the exact category names: "Browse", "Consideration", "Conversion", or "Removal".
