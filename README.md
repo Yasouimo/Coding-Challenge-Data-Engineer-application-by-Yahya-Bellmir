@@ -26,7 +26,8 @@ This repository contains a comprehensive implementation of data engineering task
     ├── Task4.md
     ├── .env # API key configuration
     ├── event_analysis_results.json # LLm analysis result
-    ├── event-type_categorizer.py
+    ├── event-type_categorizer.py # TinyLlama categorisation
+    ├── event-type_categorization_mistral.py # Mistral API categorisation
     └── requirements.txt
 ```
 
