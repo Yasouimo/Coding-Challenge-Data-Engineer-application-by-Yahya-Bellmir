@@ -1,0 +1,174 @@
+{
+  "analysis_metadata": {
+    "analysis_date": "2025-06-05 11:37:29",
+    "target_categories": [
+      "Browse",
+      "Consideration",
+      "Conversion",
+      "Removal"
+    ],
+    "error_and_unhandled_categories_tracked": [
+      "API_JSON_Decode_Error",
+      "API_Request_Error",
+      "API_Response_Format_Error",
+      "API_Timeout_Error",
+      "API_Unknown_Error",
+      "Uncategorized"
+    ],
+    "model_used": "mistral-small-latest"
+  },
+  "analysis_summary": {
+    "total_unique_event_types": 10,
+    "total_events_processed": 10000,
+    "category_distribution": {
+      "Consideration": 4294,
+      "Browse": 2514,
+      "Conversion": 2677,
+      "Removal": 515
+    },
+    "category_type_counts": {
+      "Consideration": 3,
+      "Browse": 1,
+      "Conversion": 5,
+      "Removal": 1
+    },
+    "top_categories_by_event_volume": [
+      [
+        "Consideration",
+        4294
+      ],
+      [
+        "Conversion",
+        2677
+      ],
+      [
+        "Browse",
+        2514
+      ],
+      [
+        "Removal",
+        515
+      ]
+    ],
+    "category_insights": {
+      "Consideration": {
+        "total_events_in_category": 4294,
+        "unique_event_types_in_category": 3,
+        "top_event_types_in_category": [
+          {
+            "event_type": "view_item",
+            "count": 3043
+          },
+          {
+            "event_type": "view_cart",
+            "count": 762
+          },
+          {
+            "event_type": "add_to_wishlist",
+            "count": 489
+          }
+        ]
+      },
+      "Browse": {
+        "total_events_in_category": 2514,
+        "unique_event_types_in_category": 1,
+        "top_event_types_in_category": [
+          {
+            "event_type": "view_item_list",
+            "count": 2514
+          }
+        ]
+      },
+      "Conversion": {
+        "total_events_in_category": 2677,
+        "unique_event_types_in_category": 5,
+        "top_event_types_in_category": [
+          {
+            "event_type": "add_to_cart",
+            "count": 1579
+          },
+          {
+            "event_type": "begin_checkout",
+            "count": 360
+          },
+          {
+            "event_type": "add_payment_info",
+            "count": 279
+          }
+        ]
+      },
+      "Removal": {
+        "total_events_in_category": 515,
+        "unique_event_types_in_category": 1,
+        "top_event_types_in_category": [
+          {
+            "event_type": "remove_from_cart",
+            "count": 515
+          }
+        ]
+      }
+    }
+  },
+  "detailed_categorizations": [
+    {
+      "event_type": "view_item",
+      "event_count": 3043,
+      "category": "Consideration",
+      "discovery_order": 1
+    },
+    {
+      "event_type": "view_item_list",
+      "event_count": 2514,
+      "category": "Browse",
+      "discovery_order": 2
+    },
+    {
+      "event_type": "add_to_cart",
+      "event_count": 1579,
+      "category": "Conversion",
+      "discovery_order": 3
+    },
+    {
+      "event_type": "view_cart",
+      "event_count": 762,
+      "category": "Consideration",
+      "discovery_order": 4
+    },
+    {
+      "event_type": "remove_from_cart",
+      "event_count": 515,
+      "category": "Removal",
+      "discovery_order": 5
+    },
+    {
+      "event_type": "add_to_wishlist",
+      "event_count": 489,
+      "category": "Consideration",
+      "discovery_order": 6
+    },
+    {
+      "event_type": "begin_checkout",
+      "event_count": 360,
+      "category": "Conversion",
+      "discovery_order": 7
+    },
+    {
+      "event_type": "add_payment_info",
+      "event_count": 279,
+      "category": "Conversion",
+      "discovery_order": 8
+    },
+    {
+      "event_type": "add_shipping_info",
+      "event_count": 266,
+      "category": "Conversion",
+      "discovery_order": 9
+    },
+    {
+      "event_type": "purchase",
+      "event_count": 193,
+      "category": "Conversion",
+      "discovery_order": 10
+    }
+  ]
+}
