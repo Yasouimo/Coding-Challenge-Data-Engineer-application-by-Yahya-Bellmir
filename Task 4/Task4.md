@@ -1,6 +1,6 @@
 # Task 4: E-commerce Event Analysis with Database Integration (Concise)
 
-## 1. Event Data Profile
+## 1. Event Data Profile 
 
 Analysis covers 10 unique e-commerce event types, totaling 10,000 events.
 
