@@ -10,7 +10,7 @@ import time
 
 # Load environment variables
 load_dotenv()
-
+ 
 class DynamicEcommerceEventAnalyzer:
     def __init__(self):
         self.db_params = {
