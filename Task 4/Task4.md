@@ -1,4 +1,4 @@
-# Task 4: E-commerce Event Analysis with Database Integration (Concise)
+# Task 4: E-commerce Event Analysis with Database Integration
 
 ## 1. Event Data Profile 
 
