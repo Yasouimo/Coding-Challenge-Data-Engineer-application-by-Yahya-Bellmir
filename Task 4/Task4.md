@@ -18,7 +18,7 @@ Analysis covers 10 unique e-commerce event types, totaling 10,000 events.
 | purchase            | 193   | 1.93%      |
 | **Total Events**    | **10,000** | **100.00%** |
 
-*Event types follow GA4 E-commerce standards.*
+*Event types follow GA4 E-commerce standards.* 
 
 ## 2. Implementation Overview
 
