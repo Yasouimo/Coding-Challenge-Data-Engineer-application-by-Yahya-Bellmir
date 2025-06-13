@@ -1,6 +1,6 @@
 # Data Engineering Challenge for E-commerce Platform  
 
-![Image](https://github.com/user-attachments/assets/be8d1bbd-8f09-4e03-a018-e2d400e2ae40)
+![Image](https://github.com/user-attachments/assets/be8d1bbd-8f09-4e03-a018-e2d400e2ae40) 
 
 ## Project Overview
 This repository contains a comprehensive implementation of data engineering tasks for an e-commerce platform, focusing on performance optimization, user behavior analysis, and AI-driven segmentation.
